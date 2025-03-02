@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Tejidos Artesanales</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFF8F0;
+            color: #333;
+        }
+        header {
+            background-color: #F4C2C2; /* Coral */
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #87CEEB; /* Lavanda */
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        section {
+            padding: 20px;
+        }
+        .productos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .producto {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin: 10px;
+            padding: 15px;
+            width: 30%;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .producto img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        .producto h3 {
+            color: #6B5B95; /* Lavanda */
+        }
+        .producto p {
+            font-size: 14px;
+            color: #555;
+        }
+        .producto button {
+            background-color: #FF6F61; /* Coral */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .producto button:hover {
+            background-color: #FF3B2F; /* Coral más oscuro */
+        }
+        footer {
+            background-color: #6B5B95; /* Lavanda */
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        .whatsapp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366; /* Verde WhatsApp */
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 24px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .whatsapp:hover {
+            background-color: #128C7E; /* Verde WhatsApp más oscuro */
+        }
+        .contacto-info {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .contacto-info a {
+            color: #FF6F61; /* Coral */
+            text-decoration: none;
+        }
+        .contacto-info a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Encabezado -->
+    <header>
+        <h1>Dulces Sueños Tejidos</h1>
+        <p>Magia y calidez para tu bebé.</p>
+    </header>
+
+    <!-- Menú de navegación -->
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#contacto">Contacto</a>
+        <a href="#nosotros">Sobre Nosotros</a>
+    </nav>
+
+    <!-- Sección de Inicio -->
+    <section id="inicio">
+        <h2>Bienvenidos</h2>
+        <p>En Tejidos Artesanales, nos dedicamos a crear piezas únicas y de alta calidad. Descubre la ternura y calidez de nuestros tejidos hechos a mano para bebés. Desde gorros y zapatos de lana hasta conjuntos y apliques adorables, cada pieza está confeccionada con amor y suavidad para brindar comodidad y estilo a tu pequeño. 💕</p>
+    </section>
+
+    <!-- Sección de Catálogo -->
+    <section id="catalogo">
+        <h2>Nuestros Productos</h2>
+        <div class="productos">
+            <div class="producto">
+                <img src="https://i.imgur.com/fSCPxyu.jpg" alt="conjunto para bebé">
+                <h3>conjunto para bebé</h3>
+                <p>Precio: $20.000</p>
+                <p>Descripción: Este tejido de lana 100% natural es perfecto para mantas y bufandas. Suave, cálido y duradero.</p>
+                <button>Comprar</button>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/aFgxCzQ.jpg" alt="Conjunto completo 4 en 1">
+                <h3>Conjunto completo 4 en 1</h3>
+                <p>Precio: $15.000</p>
+                <p>Descripción: Ideal para prendas ligeras y veraniegas. Fresco, cómodo y fácil de lavar.</p>
+                <button>Comprar</button>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/uRAX5jA.jpg" alt="traje para bebé">
+                <h3>traje para bebé</h3>
+                <p>Precio: $30.000</p>
+                <p>Descripción: Elegante y suave, perfecto para prendas de alta costura y accesorios delicados.</p>
+                <button>Comprar</button>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/tiJobRZ.jpg" alt="zapatitos para bebé tejidos">
+                <h3>zapatitos para bebé tejidos</h3>
+                <p>Precio: $20.000</p>
+                <p>Descripción: Este tejido de lana 100% natural es perfecto para mantas y bufandas. Suave, cálido y duradero.</p>
+                <button>Comprar</button>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/CVD60u3.jpg" alt="Moños a crochet para el cabello">
+                <h3>Moños a crochet para el cabello</h3>
+                <p>Precio: $20.000</p>
+                <p>Descripción: Este tejido de lana 100% natural es perfecto para mantas y bufandas. Suave, cálido y duradero.</p>
+                <button>Comprar</button>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/dFqY8Fs.jpg" alt="apliques de lana hechos en crochet">
+                <h3>apliques de lana hechos en crochet</h3>
+                <p>Precio: $15.000</p>
+                <p>Descripción: Ideal para prendas ligeras y veraniegas. Fresco, cómodo y fácil de lavar.</p>
+                <button>Comprar</button>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/CcRs4h4.jpg" alt="Gorros para bebeés">
+                <h3>Gorros para bebeés</h3>
+                <p>Precio: $30.000</p>
+                <p>Descripción: Elegante y suave, perfecto para prendas de alta costura y accesorios delicados.</p>
+                <button>Comprar</button>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/eDyzLbd.jpg" alt="Gorros para Bebés">
+                <h3>Gorros para Bebés</h3>
+                <p>Precio: $20.000</p>
+                <p>Descripción: Este tejido de lana 100% natural es perfecto para mantas y bufandas. Suave, cálido y duradero.</p>
+                <button>Comprar</button>
+            </div>
+               <div class="producto">
+                <img src="https://i.imgur.com/eSDePwe.png" alt="calcetines tejidos a crochet">
+                <h3>calcetines tejidos a crochet</h3>
+                <p>Precio: $20.000</p>
+                <p>Descripción: Este tejido de lana 100% natural es perfecto para mantas y bufandas. Suave, cálido y duradero.</p>
+                <button>Comprar</button>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/tGgLKZ4.jpg[" alt="Tejido artesanal">
+                <h3> Conjunto para Bebé</h3>
+                <p>Precio: $15.000</p>
+                <p>Descripción: Ideal para prendas ligeras y veraniegas. Fresco, cómodo y fácil de lavar.</p>
+                <button>Comprar</button>
+            </div>
+            <div class="producto">
+                <img src="https://via.placeholder.com/200" alt="Tejido de Seda">
+                <h3>Tejido de Seda</h3>
+                <p>Precio: $30.000</p>
+                <p>Descripción: Elegante y suave, perfecto para prendas de alta costura y accesorios delicados.</p>
+                <button>Comprar</button>
+            </div>
+            <div class="producto">
+                <img src="https://i.imgur.com/EdgT5VC.jpg" alt="conjunto de niña">
+                <h3>conjunto de niña</h3>
+                <p>Precio: $20.000</p>
+                <p>Descripción: Este tejido de lana 100% natural es perfecto para mantas y bufandas. Suave, cálido y duradero.</p>
+                <button>Comprar</button>
+        </div>
+    </section>
+
+    <!-- Sección de Contacto -->
+    <section id="contacto">
+        <h2>Contacto</h2>
+        <div class="contacto-info">
+            <p>¿Tienes preguntas? ¡Escríbenos!</p>
+            <p>Correo: <a href="mailto:info@tejidosartesanales.com">info@tejidosartesanales.com</a></p>
+            <p>Teléfono: <a href="tel:+123456789">+123 456 789</a></p>
+        </div>
+    </section>
+
+    <!-- Sección Sobre Nosotros -->
+    <section id="nosotros">
+        <h2>Sobre Nosotros</h2>
+        <p>Somos una empresa familiar con más de 10 años de experiencia en la creación de tejidos artesanales. Nos enorgullece ofrecer productos de alta calidad y un servicio al cliente excepcional.</p>
+    </section>
+
+    <!-- Botón de WhatsApp -->
+    <a href="https://wa.me/1234567890" class="whatsapp" target="_blank">&#128172;</a>
+
+    <!-- Pie de página -->
+    <footer>
+        <p>Síguenos en redes sociales: 
+            <a href="#" style="color: #FF6F61;">Facebook</a> | 
+            <a href="#" style="color: #FF6F61;">Instagram</a>
+        </p>
+        <p>&copy; 2023 Tejidos Artesanales</p>
+    </footer>
+
+</body>
+</html>
