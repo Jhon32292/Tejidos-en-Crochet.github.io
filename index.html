@@ -54,6 +54,7 @@
         .producto img {
             max-width: 100%;
             border-radius: 10px;
+            cursor: pointer;
         }
         .producto h3 {
             color: #6B5B95; /* Lavanda */
@@ -108,6 +109,56 @@
         .contacto-info a:hover {
             text-decoration: underline;
         }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination button {
+            background-color: #87CEEB; /* Lavanda */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .pagination button:hover {
+            background-color: #6B5B95; /* Lavanda más oscuro */
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 80%;
+            max-height: 80%;
+        }
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -135,91 +186,8 @@
     <!-- Sección de Catálogo -->
     <section id="catalogo">
         <h2>Nuestros Productos</h2>
-        <div class="productos">
-            <div class="producto">
-                <img src="https://i.imgur.com/fSCPxyu.jpg" alt="conjunto para bebé">
-                <h3>conjunto para bebé</h3>
-                <p>Precio: $20.000</p>
-                <p>Descripción: Este tejido de lana 100% natural es perfecto para mantas y bufandas. Suave, cálido y duradero.</p>
-                <button>Comprar</button>
-            </div>
-            <div class="producto">
-                <img src="https://i.imgur.com/aFgxCzQ.jpg" alt="Conjunto completo 4 en 1">
-                <h3>Conjunto completo 4 en 1</h3>
-                <p>Precio: $15.000</p>
-                <p>Descripción: Ideal para prendas ligeras y veraniegas. Fresco, cómodo y fácil de lavar.</p>
-                <button>Comprar</button>
-            </div>
-            <div class="producto">
-                <img src="https://i.imgur.com/uRAX5jA.jpg" alt="traje para bebé">
-                <h3>traje para bebé</h3>
-                <p>Precio: $30.000</p>
-                <p>Descripción: Elegante y suave, perfecto para prendas de alta costura y accesorios delicados.</p>
-                <button>Comprar</button>
-            </div>
-            <div class="producto">
-                <img src="https://i.imgur.com/tiJobRZ.jpg" alt="zapatitos para bebé tejidos">
-                <h3>zapatitos para bebé tejidos</h3>
-                <p>Precio: $20.000</p>
-                <p>Descripción: Este tejido de lana 100% natural es perfecto para mantas y bufandas. Suave, cálido y duradero.</p>
-                <button>Comprar</button>
-            </div>
-            <div class="producto">
-                <img src="https://i.imgur.com/CVD60u3.jpg" alt="Moños a crochet para el cabello">
-                <h3>Moños a crochet para el cabello</h3>
-                <p>Precio: $20.000</p>
-                <p>Descripción: Este tejido de lana 100% natural es perfecto para mantas y bufandas. Suave, cálido y duradero.</p>
-                <button>Comprar</button>
-            </div>
-            <div class="producto">
-                <img src="https://i.imgur.com/dFqY8Fs.jpg" alt="apliques de lana hechos en crochet">
-                <h3>apliques de lana hechos en crochet</h3>
-                <p>Precio: $15.000</p>
-                <p>Descripción: Ideal para prendas ligeras y veraniegas. Fresco, cómodo y fácil de lavar.</p>
-                <button>Comprar</button>
-            </div>
-            <div class="producto">
-                <img src="https://i.imgur.com/CcRs4h4.jpg" alt="Gorros para bebeés">
-                <h3>Gorros para bebeés</h3>
-                <p>Precio: $30.000</p>
-                <p>Descripción: Elegante y suave, perfecto para prendas de alta costura y accesorios delicados.</p>
-                <button>Comprar</button>
-            </div>
-            <div class="producto">
-                <img src="https://i.imgur.com/eDyzLbd.jpg" alt="Gorros para Bebés">
-                <h3>Gorros para Bebés</h3>
-                <p>Precio: $20.000</p>
-                <p>Descripción: Este tejido de lana 100% natural es perfecto para mantas y bufandas. Suave, cálido y duradero.</p>
-                <button>Comprar</button>
-            </div>
-               <div class="producto">
-                <img src="https://i.imgur.com/eSDePwe.png" alt="calcetines tejidos a crochet">
-                <h3>calcetines tejidos a crochet</h3>
-                <p>Precio: $20.000</p>
-                <p>Descripción: Este tejido de lana 100% natural es perfecto para mantas y bufandas. Suave, cálido y duradero.</p>
-                <button>Comprar</button>
-            </div>
-            <div class="producto">
-                <img src="https://i.imgur.com/tGgLKZ4.jpg[" alt="Tejido artesanal">
-                <h3> Conjunto para Bebé</h3>
-                <p>Precio: $15.000</p>
-                <p>Descripción: Ideal para prendas ligeras y veraniegas. Fresco, cómodo y fácil de lavar.</p>
-                <button>Comprar</button>
-            </div>
-            <div class="producto">
-                <img src="https://via.placeholder.com/200" alt="Tejido de Seda">
-                <h3>Tejido de Seda</h3>
-                <p>Precio: $30.000</p>
-                <p>Descripción: Elegante y suave, perfecto para prendas de alta costura y accesorios delicados.</p>
-                <button>Comprar</button>
-            </div>
-            <div class="producto">
-                <img src="https://i.imgur.com/EdgT5VC.jpg" alt="conjunto de niña">
-                <h3>conjunto de niña</h3>
-                <p>Precio: $20.000</p>
-                <p>Descripción: Este tejido de lana 100% natural es perfecto para mantas y bufandas. Suave, cálido y duradero.</p>
-                <button>Comprar</button>
-        </div>
+        <div class="productos" id="productos-container"></div>
+        <div class="pagination" id="pagination-container"></div>
     </section>
 
     <!-- Sección de Contacto -->
@@ -239,7 +207,9 @@
     </section>
 
     <!-- Botón de WhatsApp -->
-    <a href="https://wa.me/1234567890" class="whatsapp" target="_blank">&#128172;</a>
+    <a href="https://wa.me/1234567890" class="whatsapp" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="40">
+    </a>
 
     <!-- Pie de página -->
     <footer>
@@ -250,5 +220,90 @@
         <p>&copy; 2023 Tejidos Artesanales</p>
     </footer>
 
+    <!-- Modal para imágenes -->
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="img01">
+    </div>
+
+    <script>
+        const productos = [
+            { img: "https://i.imgur.com/fSCPxyu.jpg", nombre: "Conjunto para bebé", precio: "$20.000", descripcion: "Este tejido de lana 100% natural es perfecto para mantas y bufandas. Suave, cálido y duradero." },
+            { img: "https://i.imgur.com/aFgxCzQ.jpg", nombre: "Conjunto completo 4 en 1", precio: "$15.000", descripcion: "Ideal para prendas ligeras y veraniegas. Fresco, cómodo y fácil de lavar." },
+            { img: "https://i.imgur.com/uRAX5jA.jpg", nombre: "Traje para bebé", precio: "$30.000", descripcion: "Elegante y suave, perfecto para prendas de alta costura y accesorios delicados." },
+            { img: "https://i.imgur.com/tiJobRZ.jpg", nombre: "Zapatitos para bebé tejidos", precio: "$20.000", descripcion: "Este tejido de lana 100% natural es perfecto para mantas y bufandas. Suave, cálido y duradero." },
+            { img: "https://i.imgur.com/CVD60u3.jpg", nombre: "Moños a crochet para el cabello", precio: "$20.000", descripcion: "Este tejido de lana 100% natural es perfecto para mantas y bufandas. Suave, cálido y duradero." },
+            { img: "https://i.imgur.com/dFqY8Fs.jpg", nombre: "Apliques de lana hechos en crochet", precio: "$15.000", descripcion: "Ideal para prendas ligeras y veraniegas. Fresco, cómodo y fácil de lavar." },
+            { img: "https://i.imgur.com/CcRs4h4.jpg", nombre: "Gorros para bebés", precio: "$30.000", descripcion: "Elegante y suave, perfecto para prendas de alta costura y accesorios delicados." },
+            { img: "https://i.imgur.com/eDyzLbd.jpg", nombre: "Gorros para bebés", precio: "$20.000", descripcion: "Este tejido de lana 100% natural es perfecto para mantas y bufandas. Suave, cálido y duradero." },
+            { img: "https://i.imgur.com/eSDePwe.png", nombre: "Calcetines tejidos a crochet", precio: "$20.000", descripcion: "Este tejido de lana 100% natural es perfecto para mantas y bufandas. Suave, cálido y duradero." },
+            { img: "https://i.imgur.com/tGgLKZ4.jpg", nombre: "Conjunto para Bebé", precio: "$15.000", descripcion: "Ideal para prendas ligeras y veraniegas. Fresco, cómodo y fácil de lavar." },
+            { img: "https://via.placeholder.com/200", nombre: "Tejido de Seda", precio: "$30.000", descripcion: "Elegante y suave, perfecto para prendas de alta costura y accesorios delicados." },
+            { img: "https://i.imgur.com/EdgT5VC.jpg", nombre: "Conjunto de niña", precio: "$20.000", descripcion: "Este tejido de lana 100% natural es perfecto para mantas y bufandas. Suave, cálido y duradero." }
+        ];
+
+        const productosPorPagina = 6;
+        let paginaActual = 1;
+
+        function mostrarProductos(pagina) {
+            const inicio = (pagina - 1) * productosPorPagina;
+            const fin = inicio + productosPorPagina;
+            const productosPagina = productos.slice(inicio, fin);
+
+            const productosContainer = document.getElementById('productos-container');
+            productosContainer.innerHTML = '';
+
+            productosPagina.forEach(producto => {
+                const productoHTML = `
+                    <div class="producto">
+                        <img src="${producto.img}" alt="${producto.nombre}">
+                        <h3>${producto.nombre}</h3>
+                        <p>Precio: ${producto.precio}</p>
+                        <p>${producto.descripcion}</p>
+                        <button>Comprar</button>
+                    </div>
+                `;
+                productosContainer.innerHTML += productoHTML;
+            });
+
+            // Agregar eventos a las imágenes
+            const imagenes = document.querySelectorAll('.producto img');
+            imagenes.forEach(img => {
+                img.addEventListener('click', () => {
+                    const modal = document.getElementById('myModal');
+                    const modalImg = document.getElementById('img01');
+                    modal.style.display = 'block';
+                    modalImg.src = img.src;
+                });
+            });
+        }
+
+        function mostrarPaginacion() {
+            const totalPaginas = Math.ceil(productos.length / productosPorPagina);
+            const paginationContainer = document.getElementById('pagination-container');
+            paginationContainer.innerHTML = '';
+
+            for (let i = 1; i <= totalPaginas; i++) {
+                const boton = document.createElement('button');
+                boton.innerText = i;
+                boton.addEventListener('click', () => {
+                    paginaActual = i;
+                    mostrarProductos(paginaActual);
+                });
+                paginationContainer.appendChild(boton);
+            }
+        }
+
+        // Cerrar el modal
+        const modal = document.getElementById('myModal');
+        const span = document.getElementsByClassName('close')[0];
+        span.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        // Mostrar productos y paginación al cargar la página
+        mostrarProductos(paginaActual);
+        mostrarPaginacion();
+    </script>
 </body>
 </html>
