@@ -206,10 +206,9 @@
     </section>
 
     <!-- Botón de WhatsApp -->
-    <a href="https://wa.me/1234567890" class="whatsapp" target="_blank">
+    <a href="https://wa.me/3134254701" class="whatsapp" target="_blank">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="40">
     </a>
-
 
     <!-- Modal para imágenes -->
     <div id="myModal" class="modal">
@@ -280,6 +279,7 @@
                 boton.addEventListener('click', () => {
                     paginaActual = i;
                     mostrarProductos(paginaActual);
+                    window.scrollTo({ top: 0, behavior: 'smooth' }); // Desplazarse hacia arriba
                 });
                 paginationContainer.appendChild(boton);
             }
@@ -295,6 +295,11 @@
         // Mostrar productos y paginación al cargar la página
         mostrarProductos(paginaActual);
         mostrarPaginacion();
+
+        // Desplazarse hacia arriba al cargar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     </script>
 </body>
 </html>
