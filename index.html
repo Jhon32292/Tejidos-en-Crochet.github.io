@@ -70,6 +70,7 @@
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
         .producto button:hover {
             background-color: #FF3B2F; /* Coral más oscuro */
@@ -94,6 +95,7 @@
             text-decoration: none;
             font-size: 24px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
         }
         .whatsapp:hover {
             background-color: #128C7E; /* Verde WhatsApp más oscuro */
@@ -122,6 +124,7 @@
             margin: 0 5px;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
         .pagination button:hover {
             background-color: #6B5B95; /* Lavanda más oscuro */
@@ -152,12 +155,22 @@
             font-size: 40px;
             font-weight: bold;
             transition: 0.3s;
+            cursor: pointer;
         }
         .close:hover,
         .close:focus {
             color: #bbb;
             text-decoration: none;
-            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .producto {
+                width: 45%;
+            }
+        }
+        @media (max-width: 480px) {
+            .producto {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -196,6 +209,7 @@
         <div class="contacto-info">
             <p>¿Tienes preguntas? ¡Escríbenos!</p>
             <p>Teléfono: <a href="tel:3134254701">313 425 4701</a></p>
+            <p>Horario de atención: Lunes a Viernes 9:00 am - 6:00 pm</p>
         </div>
     </section>
 
@@ -203,10 +217,11 @@
     <section id="nosotros">
         <h2>Sobre Nosotros</h2>
         <p>Estamos en Soatá, Boyacá y nos dedicamos a la creación de tejidos artesanales para bebé, con experiencia en el arte del tejido, nos enorgullece ofrecer productos de alta calidad y un servicio al cliente excepcional. Hacemos envíos a todo el país, tanto al por mayor como al detal, llevando calidez y ternura a cada hogar.</p>
+        <p>Nuestros productos están hechos con materiales 100% naturales y tejidos a mano con mucho amor.</p>
     </section>
 
     <!-- Botón de WhatsApp -->
-    <a href="https://wa.me/3134254701" class="whatsapp" target="_blank">
+    <a href="https://wa.me/3134254701" class="whatsapp" target="_blank" title="Contactar por WhatsApp">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="40">
     </a>
 
@@ -250,15 +265,34 @@
                         <h3>${producto.nombre}</h3>
                         <p>Precio: ${producto.precio}</p>
                         <p>${producto.descripcion}</p>
-                        <button>Comprar</button>
+                        <button class="btn-comprar" 
+                                data-nombre="${producto.nombre}" 
+                                data-precio="${producto.precio}" 
+                                data-descripcion="${producto.descripcion}">
+                            Comprar
+                        </button>
                     </div>
                 `;
                 productosContainer.innerHTML += productoHTML;
             });
 
+            // Agregar eventos a los botones de compra
+            document.querySelectorAll('.btn-comprar').forEach(boton => {
+                boton.addEventListener('click', function() {
+                    const nombre = this.getAttribute('data-nombre');
+                    const precio = this.getAttribute('data-precio');
+                    const descripcion = this.getAttribute('data-descripcion');
+                    
+                    // Crear mensaje para WhatsApp
+                    const mensaje = `¡Hola! Estoy interesado/a en comprar el siguiente producto:%0A%0A*${encodeURIComponent(nombre)}*%0A*Precio:* ${encodeURIComponent(precio)}%0A%0A*Descripción:*%0A${encodeURIComponent(descripcion)}%0A%0A¿Podrías brindarme más información sobre disponibilidad y formas de pago?`;
+                    
+                    // Redirigir a WhatsApp
+                    window.open(`https://wa.me/3134254701?text=${mensaje}`, '_blank');
+                });
+            });
+
             // Agregar eventos a las imágenes
-            const imagenes = document.querySelectorAll('.producto img');
-            imagenes.forEach(img => {
+            document.querySelectorAll('.producto img').forEach(img => {
                 img.addEventListener('click', () => {
                     const modal = document.getElementById('myModal');
                     const modalImg = document.getElementById('img01');
@@ -269,27 +303,85 @@
         }
 
         function mostrarPaginacion() {
-            const totalPaginas = Math.ceil(productos.length / productosPorPagina);
-            const paginationContainer = document.getElementById('pagination-container');
-            paginationContainer.innerHTML = '';
+    const totalPaginas = Math.ceil(productos.length / productosPorPagina);
+    const paginationContainer = document.getElementById('pagination-container');
+    paginationContainer.innerHTML = '';
 
-            for (let i = 1; i <= totalPaginas; i++) {
-                const boton = document.createElement('button');
-                boton.innerText = i;
-                boton.addEventListener('click', () => {
-                    paginaActual = i;
-                    mostrarProductos(paginaActual);
-                    window.scrollTo({ top: 0, behavior: 'smooth' }); // Desplazarse hacia arriba
-                });
-                paginationContainer.appendChild(boton);
-            }
+    for (let i = 1; i <= totalPaginas; i++) {
+        const boton = document.createElement('button');
+        boton.innerText = i;
+        boton.addEventListener('click', () => {
+            paginaActual = i;
+            mostrarProductos(paginaActual);
+            window.scrollTo({ top: 0, behavior: 'smooth' }); // Desplazarse hacia arriba
+        });
+        paginationContainer.appendChild(boton);
+    }
+}
+function mostrarPaginacion() {
+    const totalPaginas = Math.ceil(productos.length / productosPorPagina);
+    const paginationContainer = document.getElementById('pagination-container');
+    paginationContainer.innerHTML = '';
+
+    // Botón Anterior (solo visible si NO estamos en la primera página)
+    if (paginaActual > 1) {
+        const botonAnterior = document.createElement('button');
+        botonAnterior.innerHTML = '&laquo; Anterior';
+        botonAnterior.addEventListener('click', () => {
+            paginaActual--;
+            mostrarProductos(paginaActual);
+            mostrarPaginacion(); // Actualizamos la paginación
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        paginationContainer.appendChild(botonAnterior);
+    }
+
+    // Números de página (siempre visibles)
+    for (let i = 1; i <= totalPaginas; i++) {
+        const boton = document.createElement('button');
+        boton.innerText = i;
+        
+        // Resaltar página actual
+        if (i === paginaActual) {
+            boton.style.backgroundColor = '#6B5B95';
+            boton.style.color = 'white';
+            boton.style.fontWeight = 'bold';
+        }
+        
+        boton.addEventListener('click', () => {
+            paginaActual = i;
+            mostrarProductos(paginaActual);
+            mostrarPaginacion(); // Actualizamos la paginación
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        paginationContainer.appendChild(boton);
+    }
+
+    // Botón Siguiente (solo visible si NO estamos en la última página)
+    if (paginaActual < totalPaginas) {
+        const botonSiguiente = document.createElement('button');
+        botonSiguiente.innerHTML = 'Siguiente &raquo;';
+        botonSiguiente.addEventListener('click', () => {
+            paginaActual++;
+            mostrarProductos(paginaActual);
+            mostrarPaginacion(); // Actualizamos la paginación
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        paginationContainer.appendChild(botonSiguiente);
+    }
+}
+
+        // Cerrar el modal al hacer click en la X
+        document.querySelector('.close').onclick = function() {
+            document.getElementById('myModal').style.display = 'none';
         }
 
-        // Cerrar el modal
-        const modal = document.getElementById('myModal');
-        const span = document.getElementsByClassName('close')[0];
-        span.onclick = function() {
-            modal.style.display = 'none';
+        // Cerrar el modal al hacer click fuera de la imagen
+        window.onclick = function(event) {
+            const modal = document.getElementById('myModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
         }
 
         // Mostrar productos y paginación al cargar la página
