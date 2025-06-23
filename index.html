@@ -162,6 +162,71 @@
             color: #bbb;
             text-decoration: none;
         }
+        /* Estilos para el modal de compra */
+        .modal-compra {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-compra-content {
+            background-color: #FFF8F0;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #F4C2C2;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .close-compra {
+            color: #6B5B95;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-compra:hover {
+            color: #FF6F61;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #6B5B95;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Arial', sans-serif;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #87CEEB;
+        }
+        .btn-submit {
+            background-color: #FF6F61;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            font-size: 16px;
+        }
+        .btn-submit:hover {
+            background-color: #FF3B2F;
+        }
         @media (max-width: 768px) {
             .producto {
                 width: 45%;
@@ -208,7 +273,7 @@
         <h2>Contacto</h2>
         <div class="contacto-info">
             <p>¿Tienes preguntas? ¡Escríbenos!</p>
-            <p>Teléfono: <a href="tel:3222156178">3222156178</a></p>
+            <p>Teléfono: <a href="tel:3222156178">322 215 6178</a></p>
             <p>Horario de atención: Lunes a Viernes 9:00 am - 6:00 pm</p>
         </div>
     </section>
@@ -220,7 +285,7 @@
     </section>
 
     <!-- Botón de WhatsApp -->
-    <a href="https://wa.me/3222156178" class="whatsapp" target="_blank" title="Contactar por WhatsApp">
+    <a href="https://wa.me/+57 3222156178" class="whatsapp" target="_blank" title="Contactar por WhatsApp">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="40">
     </a>
 
@@ -228,6 +293,50 @@
     <div id="myModal" class="modal">
         <span class="close">&times;</span>
         <img class="modal-content" id="img01">
+    </div>
+
+    <!-- Modal de compra -->
+    <div id="modalCompra" class="modal-compra">
+        <div class="modal-compra-content">
+            <span class="close-compra">&times;</span>
+            <h2 id="modalCompraTitulo">Completar Compra</h2>
+            <form id="formularioCompra">
+                <input type="hidden" id="productoNombre" name="productoNombre">
+                <input type="hidden" id="productoPrecio" name="productoPrecio">
+                
+                <div class="form-group">
+                    <label for="nombreCompleto">Nombre y Apellido:</label>
+                    <input type="text" id="nombreCompleto" name="nombreCompleto" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="celular">Celular:</label>
+                    <input type="tel" id="celular" name="celular" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="departamento">Departamento:</label>
+                    <select id="departamento" name="departamento" required>
+                        <option value="">Seleccione un departamento</option>
+                        <!-- Las opciones se llenarán con JavaScript -->
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="ciudad">Ciudad/Municipio:</label>
+                    <select id="ciudad" name="ciudad" required disabled>
+                        <option value="">Primero seleccione un departamento</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="direccion">Dirección completa:</label>
+                    <input type="text" id="direccion" name="direccion" required>
+                </div>
+                
+                <button type="submit" class="btn-submit">Enviar Pedido por WhatsApp</button>
+            </form>
+        </div>
     </div>
 
     <script>
@@ -249,6 +358,44 @@
         const productosPorPagina = 6;
         let paginaActual = 1;
 
+        // Datos completos de departamentos y municipios de Colombia
+        const departamentosYCiudades = {
+            "Amazonas": ["Leticia", "Puerto Nariño", "El Encanto", "La Chorrera", "La Pedrera", "La Victoria", "Mirití-Paraná", "Puerto Alegría", "Puerto Arica", "Puerto Santander", "Tarapacá"],
+            "Antioquia": ["Medellín", "Abejorral", "Abriaquí", "Alejandría", "Amagá", "Amalfi", "Andes", "Angelópolis", "Angostura", "Anorí", "Santafé de Antioquia", "Anzá", "Apartadó", "Arboletes", "Argelia", "Armenia", "Barbosa", "Belmira", "Bello", "Betania", "Betulia", "Ciudad Bolívar", "Briceño", "Buriticá", "Cáceres", "Caicedo", "Caldas", "Campamento", "Cañasgordas", "Caracolí", "Caramanta", "Carepa", "El Carmen de Viboral", "Carolina", "Caucasia", "Chigorodó", "Cisneros", "Cocorná", "Concepción", "Concordia", "Copacabana", "Dabeiba", "Donmatías", "Ebéjico", "El Bagre", "Entrerrios", "Envigado", "Fredonia", "Frontino", "Giraldo", "Girardota", "Gómez Plata", "Granada", "Guadalupe", "Guarne", "Guatapé", "Heliconia", "Hispania", "Itagüí", "Ituango", "Jardín", "Jericó", "La Ceja", "La Estrella", "La Pintada", "La Unión", "Liborina", "Maceo", "Marinilla", "Montebello", "Murindó", "Mutatá", "Nariño", "Necoclí", "Nechí", "Olaya", "Peñol", "Peque", "Pueblorrico", "Puerto Berrío", "Puerto Nare", "Puerto Triunfo", "Remedios", "Retiro", "Rionegro", "Sabanalarga", "Sabaneta", "Salgar", "San Andrés de Cuerquía", "San Carlos", "San Francisco", "San Jerónimo", "San José de la Montaña", "San Juan de Urabá", "San Luis", "San Pedro de los Milagros", "San Pedro de Urabá", "San Rafael", "San Roque", "San Vicente", "Santa Bárbara", "Santa Rosa de Osos", "Santo Domingo", "El Santuario", "Segovia", "Sonsón", "Sopetrán", "Támesis", "Tarazá", "Tarso", "Titiribí", "Toledo", "Turbo", "Uramita", "Urrao", "Valdivia", "Valparaíso", "Vegachí", "Venecia", "Vigía del Fuerte", "Yalí", "Yarumal", "Yolombó", "Yondó", "Zaragoza"],
+            "Arauca": ["Arauca", "Arauquita", "Cravo Norte", "Fortul", "Puerto Rondón", "Saravena", "Tame"],
+            "Atlántico": ["Barranquilla", "Baranoa", "Campo de la Cruz", "Candelaria", "Galapa", "Juan de Acosta", "Luruaco", "Malambo", "Manatí", "Palmar de Varela", "Piojó", "Polonuevo", "Ponedera", "Puerto Colombia", "Repelón", "Sabanagrande", "Sabanalarga", "Santa Lucía", "Santo Tomás", "Soledad", "Suán", "Tubará", "Usiacurí"],
+            "Bogotá, D.C.": ["Bogotá"],
+            "Bolívar": ["Cartagena", "Achí", "Altos del Rosario", "Arenal", "Arjona", "Arroyohondo", "Barranco de Loba", "Calamar", "Cantagallo", "Cicuco", "Clemencia", "Córdoba", "El Carmen de Bolívar", "El Guamo", "El Peñón", "Hatillo de Loba", "Magangué", "Mahates", "Margarita", "María la Baja", "Montecristo", "Mompós", "Morales", "Norosí", "Pinillos", "Regidor", "Río Viejo", "San Cristóbal", "San Estanislao", "San Fernando", "San Jacinto", "San Jacinto del Cauca", "San Juan Nepomuceno", "San Martín de Loba", "San Pablo", "Santa Catalina", "Santa Rosa", "Santa Rosa del Sur", "Simití", "Soplaviento", "Talaigua Nuevo", "Tiquisio", "Turbaco", "Turbaná", "Villanueva", "Zambrano"],
+            "Boyacá": ["Tunja", "Almeida", "Aquitania", "Arcabuco", "Belén", "Berbeo", "Betéitiva", "Boavita", "Boyacá", "Briceño", "Buenavista", "Busbanzá", "Caldas", "Campohermoso", "Cerinza", "Chinavita", "Chiquinquirá", "Chiscas", "Chita", "Chitaraque", "Chivatá", "Ciénega", "Cómbita", "Coper", "Corrales", "Covarachía", "Cubará", "Cucaita", "Cuítiva", "Chíquiza", "Chivor", "Duitama", "El Cocuy", "El Espino", "Firavitoba", "Floresta", "Gachantivá", "Gameza", "Garagoa", "Guacamayas", "Guateque", "Guayatá", "Güicán", "Iza", "Jenesano", "Jericó", "Labranzagrande", "La Capilla", "La Victoria", "La Uvita", "Villa de Leyva", "Macanal", "Maripí", "Miraflores", "Mongua", "Monguí", "Moniquirá", "Motavita", "Muzo", "Nobsa", "Nuevo Colón", "Oicatá", "Otanche", "Pachavita", "Páez", "Paipa", "Pajarito", "Panqueba", "Pauna", "Paya", "Paz de Río", "Pesca", "Pisba", "Puerto Boyacá", "Quípama", "Ramiriquí", "Ráquira", "Rondón", "Saboyá", "Sáchica", "Samacá", "San Eduardo", "San José de Pare", "San Luis de Gaceno", "San Mateo", "San Miguel de Sema", "San Pablo de Borbur", "Santana", "Santa María", "Santa Rosa de Viterbo", "Santa Sofía", "Sativanorte", "Sativasur", "Siachoque", "Soatá", "Socotá", "Socha", "Sogamoso", "Somondoco", "Sora", "Sotaquirá", "Soracá", "Susacón", "Sutamarchán", "Sutatenza", "Tasco", "Tenza", "Tibaná", "Tibasosa", "Tinjacá", "Tipacoque", "Toca", "Togüí", "Tópaga", "Tota", "Tununguá", "Turmequé", "Tuta", "Tutazá", "Umbita", "Ventaquemada", "Viracachá", "Zetaquira"],
+            /* [Continúa con los demás departamentos...] */
+            "Caldas": ["Manizales", "Aguadas", "Anserma", "Aranzazu", "Belalcázar", "Chinchiná", "Filadelfia", "La Dorada", "La Merced", "Manzanares", "Marmato", "Marquetalia", "Marulanda", "Neira", "Norcasia", "Pácora", "Palestina", "Pensilvania", "Riosucio", "Risaralda", "Salamina", "Samaná", "San José", "Supía", "Victoria", "Villamaría", "Viterbo"],
+            "Caquetá": ["Florencia", "Albania", "Belén de los Andaquíes", "Cartagena del Chairá", "Curillo", "El Doncello", "El Paujil", "La Montañita", "Milán", "Morelia", "Puerto Rico", "San José del Fragua", "San Vicente del Caguán", "Solano", "Solita", "Valparaíso"],
+            "Casanare": ["Yopal", "Aguazul", "Chámeza", "Hato Corozal", "La Salina", "Maní", "Monterrey", "Nunchía", "Orocué", "Paz de Ariporo", "Pore", "Recetor", "Sabanalarga", "Sácama", "San Luis de Palenque", "Támara", "Tauramena", "Trinidad", "Villanueva"],
+            "Cauca": ["Popayán", "Almaguer", "Argelia", "Balboa", "Bolívar", "Buenos Aires", "Cajibío", "Caldono", "Caloto", "Corinto", "El Tambo", "Florencia", "Guachené", "Guapi", "Inzá", "Jambaló", "La Sierra", "La Vega", "López", "Mercaderes", "Miranda", "Morales", "Padilla", "Páez", "Patía", "Piamonte", "Piendamó", "Puerto Tejada", "Puracé", "Rosas", "San Sebastián", "Santander de Quilichao", "Santa Rosa", "Silvia", "Sotará", "Suárez", "Sucre", "Timbío", "Timbiquí", "Toribío", "Totoró", "Villa Rica"],
+            "Cesar": ["Valledupar", "Aguachica", "Agustín Codazzi", "Astrea", "Becerril", "Bosconia", "Chimichagua", "Chiriguaná", "Curumaní", "El Copey", "El Paso", "Gamarra", "González", "La Gloria", "La Jagua de Ibirico", "Manaure", "Pailitas", "Pelaya", "Pueblo Bello", "Río de Oro", "La Paz", "San Alberto", "San Diego", "San Martín", "Tamalameque"],
+            "Chocó": ["Quibdó", "Acandí", "Alto Baudó", "Atrato", "Bagadó", "Bahía Solano", "Bajo Baudó", "Bojayá", "El Cantón del San Pablo", "Cértegui", "Condoto", "El Carmen de Atrato", "El Litoral del San Juan", "Istmina", "Juradó", "Lloró", "Medio Atrato", "Medio Baudó", "Medio San Juan", "Nóvita", "Nuquí", "Río Iró", "Río Quito", "Riosucio", "San José del Palmar", "Sipí", "Tadó", "Unguía", "Unión Panamericana"],
+            "Córdoba": ["Montería", "Ayapel", "Buenavista", "Canalete", "Cereté", "Chimá", "Chinú", "Ciénaga de Oro", "Cotorra", "La Apartada", "Lorica", "Los Córdobas", "Momil", "Montelíbano", "Moñitos", "Planeta Rica", "Pueblo Nuevo", "Puerto Escondido", "Puerto Libertador", "Purísima", "Sahagún", "San Andrés de Sotavento", "San Antero", "San Bernardo del Viento", "San Carlos", "San José de Uré", "San Pelayo", "Tierralta", "Tuchín", "Valencia"],
+            "Cundinamarca": ["Agua de Dios", "Albán", "Anapoima", "Anolaima", "Apulo", "Arbeláez", "Beltrán", "Bituima", "Bojacá", "Cabrera", "Cachipay", "Cajicá", "Caparrapí", "Caqueza", "Carmen de Carupa", "Chaguaní", "Chía", "Chipaque", "Choachí", "Chocontá", "Cogua", "Cota", "Cucunubá", "El Colegio", "El Peñón", "El Rosal", "Facatativá", "Fómeque", "Fosca", "Funza", "Fúquene", "Fusagasugá", "Gachalá", "Gachancipá", "Gachetá", "Gama", "Girardot", "Granada", "Guachetá", "Guaduas", "Guasca", "Guataquí", "Guatavita", "Guayabal de Síquima", "Guayabetal", "Gutiérrez", "Jerusalén", "Junín", "La Calera", "La Mesa", "La Palma", "La Peña", "La Vega", "Lenguazaque", "Machetá", "Madrid", "Manta", "Medina", "Mosquera", "Nariño", "Nemocón", "Nilo", "Nimaima", "Nocaima", "Pacho", "Paime", "Pandi", "Paratebueno", "Pasca", "Puerto Salgar", "Pulí", "Quebradanegra", "Quetame", "Quipile", "Ricaurte", "San Antonio del Tequendama", "San Bernardo", "San Cayetano", "San Francisco", "San Juan de Río Seco", "Sasaima", "Sesquilé", "Sibaté", "Silvania", "Simijaca", "Soacha", "Sopó", "Subachoque", "Suesca", "Supatá", "Susa", "Sutatausa", "Tabio", "Tausa", "Tena", "Tenjo", "Tibacuy", "Tibirita", "Tocaima", "Tocancipá", "Topaipí", "Ubalá", "Ubaque", "Ubaté", "Une", "Útica", "Vergara", "Vianí", "Villagómez", "Villapinzón", "Villeta", "Viotá", "Yacopí", "Zipacón", "Zipaquirá"],
+            "Guainía": ["Inírida", "Barranco Minas", "Mapiripana", "San Felipe", "Puerto Colombia", "La Guadalupe", "Cacahual", "Pana Pana", "Morichal"],
+            "Guaviare": ["San José del Guaviare", "Calamar", "El Retorno", "Miraflores"],
+            "Huila": ["Neiva", "Acevedo", "Agrado", "Aipe", "Algeciras", "Altamira", "Baraya", "Campoalegre", "Colombia", "Elías", "Garzón", "Gigante", "Guadalupe", "Hobo", "Íquira", "Isnos", "La Argentina", "La Plata", "Nátaga", "Oporapa", "Paicol", "Palermo", "Palestina", "Pital", "Pitalito", "Rivera", "Saladoblanco", "San Agustín", "Santa María", "Suaza", "Tarqui", "Tello", "Teruel", "Tesalia", "Timaná", "Villavieja", "Yaguará"],
+            "La Guajira": ["Riohacha", "Albania", "Barrancas", "Dibulla", "Distracción", "El Molino", "Fonseca", "Hatonuevo", "La Jagua del Pilar", "Maicao", "Manaure", "San Juan del Cesar", "Uribia", "Urumita", "Villanueva"],
+            "Magdalena": ["Santa Marta", "Algarrobo", "Aracataca", "Ariguaní", "Cerro San Antonio", "Chibolo", "Ciénaga", "Concordia", "El Banco", "El Piñon", "El Retén", "Fundación", "Guamal", "Nueva Granada", "Pedraza", "Pijiño del Carmen", "Pivijay", "Plato", "Puebloviejo", "Remolino", "Sabanas de San Ángel", "Salamina", "San Sebastián de Buenavista", "San Zenón", "Santa Ana", "Santa Bárbara de Pinto", "Sitionuevo", "Tenerife", "Zapayán", "Zona Bananera"],
+            "Meta": ["Villavicencio", "Acacías", "Barranca de Upía", "Cabuyaro", "Castilla la Nueva", "Cubarral", "Cumaral", "El Calvario", "El Castillo", "El Dorado", "Fuente de Oro", "Granada", "Guamal", "Mapiripán", "Mesetas", "La Macarena", "Uribe", "Lejanías", "Puerto Concordia", "Puerto Gaitán", "Puerto López", "Puerto Lleras", "Puerto Rico", "Restrepo", "San Carlos de Guaroa", "San Juan de Arama", "San Juanito", "San Martín", "Vistahermosa"],
+            "Nariño": ["Pasto", "Albán", "Aldana", "Ancuyá", "Arboleda", "Barbacoas", "Belén", "Buesaco", "Colón", "Consacá", "Contadero", "Córdoba", "Cuaspud", "Cumbal", "Cumbitara", "Chachagüí", "El Charco", "El Peñol", "El Rosario", "El Tablón de Gómez", "El Tambo", "Funes", "Guachucal", "Guaitarilla", "Gualmatán", "Iles", "Imués", "Ipiales", "La Cruz", "La Florida", "La Llanada", "La Tola", "La Unión", "Leiva", "Linares", "Los Andes", "Magüí", "Mallama", "Mosquera", "Nariño", "Olaya Herrera", "Ospina", "Francisco Pizarro", "Policarpa", "Potosí", "Providencia", "Puerres", "Pupiales", "Ricaurte", "Roberto Payán", "Samaniego", "San Bernardo", "San Lorenzo", "San Pablo", "San Pedro de Cartago", "Sandoná", "Santa Bárbara", "Santacruz", "Sapuyes", "Taminango", "Tangua", "San Andrés de Tumaco", "Túquerres", "Yacuanquer"],
+            "Norte de Santander": ["Cúcuta", "Abrego", "Arboledas", "Bochalema", "Bucarasica", "Cácota", "Cachirá", "Chinácota", "Chitagá", "Convención", "Cucutilla", "Durania", "El Carmen", "El Tarra", "El Zulia", "Gramalote", "Hacarí", "Herrán", "Labateca", "La Esperanza", "La Playa", "Los Patios", "Lourdes", "Mutiscua", "Ocaña", "Pamplona", "Pamplonita", "Puerto Santander", "Ragonvalia", "Salazar", "San Calixto", "San Cayetano", "Santiago", "Sardinata", "Silos", "Teorama", "Tibú", "Toledo", "Villa Caro", "Villa del Rosario"],
+            "Putumayo": ["Mocoa", "Colón", "Orito", "Puerto Asís", "Puerto Caicedo", "Puerto Guzmán", "Puerto Leguízamo", "San Francisco", "San Miguel", "Santiago", "Sibundoy", "Valle del Guamuez", "Villagarzón"],
+            "Quindío": ["Armenia", "Buenavista", "Calarcá", "Circasia", "Córdoba", "Filandia", "Génova", "La Tebaida", "Montenegro", "Pijao", "Quimbaya", "Salento"],
+            "Risaralda": ["Pereira", "Apía", "Balboa", "Belén de Umbría", "Dosquebradas", "Guática", "La Celia", "La Virginia", "Marsella", "Mistrató", "Pueblo Rico", "Quinchía", "Santa Rosa de Cabal", "Santuario"],
+            "San Andrés y Providencia": ["San Andrés", "Providencia y Santa Catalina"],
+            "Santander": ["Bucaramanga", "Aguada", "Albania", "Aratoca", "Barbosa", "Barichara", "Barrancabermeja", "Betulia", "Bolívar", "Cabrera", "California", "Capitanejo", "Carcasí", "Cepitá", "Cerrito", "Charalá", "Charta", "Chima", "Chipatá", "Cimitarra", "Concepción", "Confines", "Contratación", "Coromoro", "Curití", "El Carmen de Chucurí", "El Guacamayo", "El Peñón", "El Playón", "Encino", "Enciso", "Florián", "Floridablanca", "Galán", "Gámbita", "Girón", "Guaca", "Guadalupe", "Guapotá", "Guavatá", "Güepsa", "Hato", "Jesús María", "Jordán", "La Belleza", "Landázuri", "La Paz", "Lebrija", "Los Santos", "Macaravita", "Málaga", "Matanza", "Mogotes", "Molagavita", "Ocamonte", "Oiba", "Onzaga", "Palmar", "Palmas del Socorro", "Páramo", "Piedecuesta", "Pinchote", "Puente Nacional", "Puerto Parra", "Puerto Wilches", "Rionegro", "Sabana de Torres", "San Andrés", "San Benito", "San Gil", "San Joaquín", "San José de Miranda", "San Miguel", "San Vicente de Chucurí", "Santa Bárbara", "Santa Helena del Opón", "Simacota", "Socorro", "Suaita", "Sucre", "Suratá", "Tona", "Valle de San José", "Vélez", "Vetas", "Villanueva", "Zapatoca"],
+            "Sucre": ["Sincelejo", "Buenavista", "Caimito", "Colosó", "Corozal", "Coveñas", "Chalán", "El Roble", "Galeras", "Guaranda", "La Unión", "Los Palmitos", "Majagual", "Morroa", "Ovejas", "Palmito", "Sampués", "San Benito Abad", "San Juan de Betulia", "San Marcos", "San Onofre", "San Pedro", "San Luis de Sincé", "Sucre", "Santiago de Tolú", "Tolú Viejo"],
+            "Tolima": ["Ibagué", "Alpujarra", "Alvarado", "Ambalema", "Anzoátegui", "Armero", "Ataco", "Cajamarca", "Carmen de Apicalá", "Casabianca", "Chaparral", "Coello", "Coyaima", "Cunday", "Dolores", "El Espinal", "Falan", "Flandes", "Fresno", "Guamo", "Herveo", "Honda", "Icononzo", "Lérida", "Líbano", "Mariquita", "Melgar", "Murillo", "Natagaima", "Ortega", "Palocabildo", "Piedras", "Planadas", "Prado", "Purificación", "Rioblanco", "Roncesvalles", "Rovira", "Saldaña", "San Antonio", "San Luis", "Santa Isabel", "Suárez", "Valle de San Juan", "Venadillo", "Villahermosa", "Villarrica"],
+            "Valle del Cauca": ["Cali", "Alcalá", "Andalucía", "Ansermanuevo", "Argelia", "Bolívar", "Buenaventura", "Buga", "Bugalagrande", "Caicedonia", "Calima", "Candelaria", "Cartago", "Dagua", "El Águila", "El Cairo", "El Cerrito", "El Dovio", "Florida", "Ginebra", "Guacarí", "Jamundí", "La Cumbre", "La Unión", "La Victoria", "Obando", "Palmira", "Pradera", "Restrepo", "Riofrío", "Roldanillo", "San Pedro", "Sevilla", "Toro", "Trujillo", "Tuluá", "Ulloa", "Versalles", "Vijes", "Yotoco", "Yumbo", "Zarzal"],
+            "Vaupés": ["Mitú", "Carurú", "Pacoa", "Taraira", "Papunaua", "Yavaraté"],
+            "Vichada": ["Puerto Carreño", "La Primavera", "Santa Rosalía", "Cumaribo"]
+        };
+
         function mostrarProductos(pagina) {
             const inicio = (pagina - 1) * productosPorPagina;
             const fin = inicio + productosPorPagina;
@@ -266,8 +413,7 @@
                         <p>${producto.descripcion}</p>
                         <button class="btn-comprar" 
                                 data-nombre="${producto.nombre}" 
-                                data-precio="${producto.precio}" 
-                                data-descripcion="${producto.descripcion}">
+                                data-precio="${producto.precio}">
                             Comprar
                         </button>
                     </div>
@@ -280,13 +426,7 @@
                 boton.addEventListener('click', function() {
                     const nombre = this.getAttribute('data-nombre');
                     const precio = this.getAttribute('data-precio');
-                    const descripcion = this.getAttribute('data-descripcion');
-                    
-                    // Crear mensaje para WhatsApp
-                    const mensaje = `¡Hola! Estoy interesado/a en comprar el siguiente producto:%0A%0A*${encodeURIComponent(nombre)}*%0A*Precio:* ${encodeURIComponent(precio)}%0A%0A*Descripción:*%0A${encodeURIComponent(descripcion)}%0A%0A¿Podrías brindarme más información sobre disponibilidad y formas de pago?`;
-                    
-                    // Redirigir a WhatsApp
-                    window.open(`https://wa.me/+57 3222156178?text=${mensaje}`, '_blank');
+                    mostrarModalCompra(nombre, precio);
                 });
             });
 
@@ -302,86 +442,140 @@
         }
 
         function mostrarPaginacion() {
-    const totalPaginas = Math.ceil(productos.length / productosPorPagina);
-    const paginationContainer = document.getElementById('pagination-container');
-    paginationContainer.innerHTML = '';
+            const totalPaginas = Math.ceil(productos.length / productosPorPagina);
+            const paginationContainer = document.getElementById('pagination-container');
+            paginationContainer.innerHTML = '';
 
-    for (let i = 1; i <= totalPaginas; i++) {
-        const boton = document.createElement('button');
-        boton.innerText = i;
-        boton.addEventListener('click', () => {
-            paginaActual = i;
-            mostrarProductos(paginaActual);
-            window.scrollTo({ top: 0, behavior: 'smooth' }); // Desplazarse hacia arriba
-        });
-        paginationContainer.appendChild(boton);
-    }
-}
-function mostrarPaginacion() {
-    const totalPaginas = Math.ceil(productos.length / productosPorPagina);
-    const paginationContainer = document.getElementById('pagination-container');
-    paginationContainer.innerHTML = '';
+            // Botón Anterior (solo visible si NO estamos en la primera página)
+            if (paginaActual > 1) {
+                const botonAnterior = document.createElement('button');
+                botonAnterior.innerHTML = '&laquo; Anterior';
+                botonAnterior.addEventListener('click', () => {
+                    paginaActual--;
+                    mostrarProductos(paginaActual);
+                    mostrarPaginacion();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+                paginationContainer.appendChild(botonAnterior);
+            }
 
-    // Botón Anterior (solo visible si NO estamos en la primera página)
-    if (paginaActual > 1) {
-        const botonAnterior = document.createElement('button');
-        botonAnterior.innerHTML = '&laquo; Anterior';
-        botonAnterior.addEventListener('click', () => {
-            paginaActual--;
-            mostrarProductos(paginaActual);
-            mostrarPaginacion(); // Actualizamos la paginación
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-        paginationContainer.appendChild(botonAnterior);
-    }
+            // Números de página (siempre visibles)
+            for (let i = 1; i <= totalPaginas; i++) {
+                const boton = document.createElement('button');
+                boton.innerText = i;
+                
+                // Resaltar página actual
+                if (i === paginaActual) {
+                    boton.style.backgroundColor = '#6B5B95';
+                    boton.style.color = 'white';
+                    boton.style.fontWeight = 'bold';
+                }
+                
+                boton.addEventListener('click', () => {
+                    paginaActual = i;
+                    mostrarProductos(paginaActual);
+                    mostrarPaginacion();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+                paginationContainer.appendChild(boton);
+            }
 
-    // Números de página (siempre visibles)
-    for (let i = 1; i <= totalPaginas; i++) {
-        const boton = document.createElement('button');
-        boton.innerText = i;
-        
-        // Resaltar página actual
-        if (i === paginaActual) {
-            boton.style.backgroundColor = '#6B5B95';
-            boton.style.color = 'white';
-            boton.style.fontWeight = 'bold';
+            // Botón Siguiente (solo visible si NO estamos en la última página)
+            if (paginaActual < totalPaginas) {
+                const botonSiguiente = document.createElement('button');
+                botonSiguiente.innerHTML = 'Siguiente &raquo;';
+                botonSiguiente.addEventListener('click', () => {
+                    paginaActual++;
+                    mostrarProductos(paginaActual);
+                    mostrarPaginacion();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+                paginationContainer.appendChild(botonSiguiente);
+            }
         }
-        
-        boton.addEventListener('click', () => {
-            paginaActual = i;
-            mostrarProductos(paginaActual);
-            mostrarPaginacion(); // Actualizamos la paginación
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-        paginationContainer.appendChild(boton);
-    }
 
-    // Botón Siguiente (solo visible si NO estamos en la última página)
-    if (paginaActual < totalPaginas) {
-        const botonSiguiente = document.createElement('button');
-        botonSiguiente.innerHTML = 'Siguiente &raquo;';
-        botonSiguiente.addEventListener('click', () => {
-            paginaActual++;
-            mostrarProductos(paginaActual);
-            mostrarPaginacion(); // Actualizamos la paginación
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-        paginationContainer.appendChild(botonSiguiente);
-    }
-}
+        // Función para mostrar el modal de compra
+        function mostrarModalCompra(nombre, precio) {
+            const modal = document.getElementById('modalCompra');
+            document.getElementById('productoNombre').value = nombre;
+            document.getElementById('productoPrecio').value = precio;
+            document.getElementById('modalCompraTitulo').textContent = `Comprar: ${nombre}`;
+            
+            // Llenar select de departamentos
+            const selectDepto = document.getElementById('departamento');
+            selectDepto.innerHTML = '<option value="">Seleccione un departamento</option>';
+            Object.keys(departamentosYCiudades).forEach(depto => {
+                const option = document.createElement('option');
+                option.value = depto;
+                option.textContent = depto;
+                selectDepto.appendChild(option);
+            });
+            
+            modal.style.display = 'block';
+        }
 
-        // Cerrar el modal al hacer click en la X
+        // Evento para el cambio de departamento
+        document.getElementById('departamento').addEventListener('change', function() {
+            const depto = this.value;
+            const selectCiudad = document.getElementById('ciudad');
+            
+            selectCiudad.innerHTML = '<option value="">Seleccione una ciudad</option>';
+            selectCiudad.disabled = !depto;
+            
+            if (depto) {
+                departamentosYCiudades[depto].forEach(ciudad => {
+                    const option = document.createElement('option');
+                    option.value = ciudad;
+                    option.textContent = ciudad;
+                    selectCiudad.appendChild(option);
+                });
+            }
+        });
+
+        // Cerrar modal de imágenes
         document.querySelector('.close').onclick = function() {
             document.getElementById('myModal').style.display = 'none';
         }
 
-        // Cerrar el modal al hacer click fuera de la imagen
+        // Cerrar modal de compra
+        document.querySelector('.close-compra').onclick = function() {
+            document.getElementById('modalCompra').style.display = 'none';
+        }
+
+        // Cerrar modales al hacer click fuera
         window.onclick = function(event) {
             const modal = document.getElementById('myModal');
+            const modalCompra = document.getElementById('modalCompra');
+            
             if (event.target == modal) {
                 modal.style.display = 'none';
             }
+            if (event.target == modalCompra) {
+                modalCompra.style.display = 'none';
+            }
         }
+
+        // Enviar formulario de compra
+        document.getElementById('formularioCompra').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const producto = document.getElementById('productoNombre').value;
+            const precio = document.getElementById('productoPrecio').value;
+            const nombreCompleto = document.getElementById('nombreCompleto').value;
+            const celular = document.getElementById('celular').value;
+            const departamento = document.getElementById('departamento').value;
+            const ciudad = document.getElementById('ciudad').value;
+            const direccion = document.getElementById('direccion').value;
+            
+            // Crear mensaje para WhatsApp
+            const mensaje = `¡Hola! Quiero comprar el siguiente producto:%0A%0A*${encodeURIComponent(producto)}*%0A*Precio:* ${encodeURIComponent(precio)}%0A%0A*Mis datos:*%0A- Nombre: ${encodeURIComponent(nombreCompleto)}%0A- Celular: ${encodeURIComponent(celular)}%0A- Departamento: ${encodeURIComponent(departamento)}%0A- Ciudad: ${encodeURIComponent(ciudad)}%0A- Dirección: ${encodeURIComponent(direccion)}%0A%0A¿Podrías confirmarme la disponibilidad y formas de pago?`;
+            
+            // Redirigir a WhatsApp
+            window.open(`https://wa.me/+573222156178?text=${mensaje}`, '_blank');
+            
+            // Cerrar el modal
+            document.getElementById('modalCompra').style.display = 'none';
+        });
 
         // Mostrar productos y paginación al cargar la página
         mostrarProductos(paginaActual);
